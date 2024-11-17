@@ -1,0 +1,23 @@
+{
+  "name": "vscode-extension-docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "slides:dev": "slidev --port 3030 slides/main.md",
+    "slides:build": "slidev build slides/main.md --base /slides/ --out docs/public/slides",
+    "build": "npm run slides:build && npm run docs:build",
+    "dev": "npm run slides:build && npm run docs:dev"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.47.0",
+    "@slidev/theme-default": "^0.25.0",
+    "@slidev/theme-seriph": "^0.25.0",
+    "vitepress": "1.0.0-rc.31"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
