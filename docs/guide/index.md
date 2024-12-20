@@ -1,17 +1,30 @@
-# Introduction
 
-Welcome to the documentation for our VSCode extension. This guide will help you understand the features and capabilities of the extension.
+# 简介
 
-## Overview
+AutoAPIGen 是一款面向 VSCode 的插件，主要功能是依据团队接口文档自动生成 API 的 TypeScript 接口请求代码以及对应接口的 ts 类型定义。其作用在于通过解析项目中的 API 文档，为开发者快速构建 API 的接口请求提供便利。
 
-Our extension provides powerful functionality to enhance your development workflow in Visual Studio Code.
+## 概述
 
-## Key Features
+AutoAPIGen提供了全面的功能，以便开发者快速构建和使用 API 的接口请求。
 
-- Feature 1: Description
-- Feature 2: Description
-- Feature 3: Description
+## 重要亮点
 
-## Why Use This Extension?
+1. 自动生成 API 的 TypeScript 接口请求代码以及对应接口的 ts 类型定义
+2. 支持多项目同时管理
+3. 界面化的操作方式，无需手动编写代码
+4. 支持自定义函数的返回，能够满足不同项目的需求
 
-Explain the benefits and use cases of your extension here.
+## 后续计划
+
+1. 支持更多的API文档管理平台
+2. 增加更多的内置接口方法
+3. 增加接口详情查看功能
+4. 增加快速接口调试功能
+
+## 为什么选择 AutoAPIGen ？
+
+1. 省去手动编写代码，快速生成 API 的 TypeScript 接口请求代码以及对应接口的 ts 类型定义
+2. 便于统一团队的接口请求风格，提高团队协作效率
+3. 减少不必要的重复工作，提高开发效率
+4. 降低接口文档的维护成本，提高团队开发效率
+5. 通过明确的类型提示，省去MOCK数据编写，提高开发效率

@@ -1,0 +1,18 @@
+{
+    "appName": "apifox",
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTU4Njg3MiwidHMiOiIyNmQ4MWQzNTkzZjQ5MDU1IiwiaWF0IjoxNzIxODA2MDI4OTg3fQ.vT9JQtCex1JQ4VpVAbMXu06nLRjqQI8FwAE21guNHaQ",
+    "path": "/src/api",
+    "projectId": [
+        1602038,
+        5464284
+    ],
+    "head": "import qs from 'qs'\nimport type { IConfig } from '@galaxy/swrv'\nimport type { AxiosRequestConfig } from 'axios'\nimport http from '@/services/http'\nimport { useMutation, useSWRGet } from '@/services/swrv'\ntype Expand<T> = T extends infer O ? { [K in keyof O]: O[K] } : never;",
+    "customReturn": "",
+    "customExtraFunction": "// 在此输入自定义内容\nconst fun = () => {\n    const buildParams = () => {\n      const args = []\n      if (options.pathParams.length) {\n        if (options.pathParams.length > 1) {\n          args.push(`pathParams: Expand<${options.pathParamsType} | Ref<${options.pathParamsType}>>`);\n        } else {\n          args.push(`${options.pathParams[0].name}: string`);\n        }\n      }\n      if (options.queryParams.length) {\n        args.push(`params: Expand<${options.queryParamsType} | Ref<${options.queryParamsType}>>`);\n      }\n      if (!['get', 'delete', 'head', 'options'].includes(options.apiMethod) && options.haveReqBody) {\n        args.push(`data: Expand<${options.dataParamsType} | Ref<${options.dataParamsType}>>`);\n      }\n      const config = options.apiMethod === 'get' ? 'swrvConfig: IConfig = {}' : `axiosConfig?: AxiosRequestConfig`\n      args.push(config)\n      return args.join(', ')\n    }\n    if (options.apiMethod === 'get') {\n      const computedParams = options.queryParams.length ? '\\n   const computedParams = computed(() => qs.stringify(unref(params)))' : ''\n      const allPath = options.queryParams.length ? `() => computedParams.value && \\`${options.apiPath}?\\${computedParams.value}\\`` : `\\`${options.apiPath}\\``\n      return `${'\\n'}export const ${options.extraFunctionName} = (${buildParams()}) => {${computedParams}${'\\n'}    return useSWRGet<Expand<${options.apiReturnType}>>(${allPath}, swrvConfig)${'\\n'}}`\n    } else {\n      return `${'\\n'}export const ${options.extraFunctionName} = (axiosConfig?: AxiosRequestConfig) => {${'\\n'}   return useMutation<Expand<${options.apiReturnType}>, Expand<${options.dataParamsType}>>(${options.apiFunctionName}, axiosConfig)${'\\n'}}`\n    }\n  }\nfun()",
+    "model": "custom",
+    "prettierSetting": "{\n    \"semi\": false, \n    \"singleQuote\": true,\n    \"parser\": \"typescript\"\n}",
+    "axiosPath": "",
+    "axiosReturnKey": "data",
+    "useProjectName": true,
+    "alias": ""
+}
