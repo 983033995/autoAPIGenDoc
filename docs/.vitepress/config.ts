@@ -51,5 +51,5 @@ export default defineConfig({
       copyright: 'Copyright © 2024'
     }
   },
-  base: process.env.NODE_ENV === 'production' ? '/autoAPIGenDoc/' : '/'
+  base: '/autoAPIGenDoc/'
 })
