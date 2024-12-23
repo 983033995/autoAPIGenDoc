@@ -8,7 +8,7 @@ export default defineConfig({
   title: "AutoAPIGen",
   description: "AutoAPIGen扩展的官方文档",
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '../logo.png' }]
   ],
   themeConfig: {
     nav: [
@@ -55,5 +55,5 @@ export default defineConfig({
       copyright: 'Copyright © 2024'
     }
   },
-  base: '/autoAPIGenDoc/'
+  base: '/'
 })
