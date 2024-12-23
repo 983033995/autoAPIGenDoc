@@ -27,9 +27,7 @@ jobs:
         run: pnpm run build
 
       - name: Create .nojekyll
-        run: |
-          touch docs/.vitepress/dist/.nojekyll
-          ls -la docs/.vitepress/dist
+        run: touch docs/.vitepress/dist/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
