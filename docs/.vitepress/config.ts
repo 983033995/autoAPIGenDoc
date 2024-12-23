@@ -1,3 +1,7 @@
+/*
+ * @FilePath: /autoAPIGenDoc/docs/.vitepress/config.ts
+ * @Description: 
+ */
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
@@ -44,7 +48,7 @@ export default defineConfig({
       }
     ],
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/your-username/your-extension' }
+      { icon: 'github', link: 'https://github.com/983033995/AutoAPIGen-Vsix' }
     ],
     footer: {
       message: '基于 MIT 许可发布',
