@@ -50,5 +50,6 @@ export default defineConfig({
       message: '基于 MIT 许可发布',
       copyright: 'Copyright © 2024'
     }
-  }
+  },
+  base: process.env.NODE_ENV === 'production' ? '/autoAPIGenDoc/' : '/'
 })
