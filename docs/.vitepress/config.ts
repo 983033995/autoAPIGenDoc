@@ -45,6 +45,13 @@ export default defineConfig({
         items: [
           { text: 'options', link: '/api/' },
         ]
+      },
+      {
+        text: '常见问题',
+        items: [
+          { text: 'FAQ', link: '/faq/' },
+          { text: 'Issue', link: '/faq/issue' },
+        ]
       }
     ],
     socialLinks: [
