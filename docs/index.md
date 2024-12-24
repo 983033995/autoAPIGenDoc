@@ -2,26 +2,26 @@
 layout: home
 hero:
   name: AutoAPIGen 扩展
-  text: 根据API文档生成接口请求及TS类型
-  tagline: 高效的API文档生成工具，让你不再为写接口请求的类型定义而烦恼
+  text: 根据 API 文档一键生成接口请求代码及 TS 类型定义
+  tagline: 高效的 API 文档生成工具，提升开发效率，减少重复工作
   actions:
     - theme: brand
-      text: 开始使用
+      text: 快速开始
       link: /guide/
     - theme: alt
-      text: 在 GitHub 上查看
+      text: 查看 GitHub 仓库
       link: https://github.com/983033995/AutoAPIGen-Vsix
 
 features:
   - icon: 📐
-    title: 界面化
-    details: 所见即所得的界面，直观的操作体验
+    title: 界面化操作
+    details: 简单直观的界面，所见即所得，轻松上手。
   - icon: ⚡️
-    title: 内置功能
-    details: 提供常用的代码导入、查看功能，方便快捷
+    title: 丰富的内置功能
+    details: 提供常用代码导入和查看功能，让开发更高效。
   - icon: 🛠️
-    title: 自定义配置
-    details: 灵活的配置选项，满足不同开发者的需求
+    title: 强大的自定义能力
+    details: 灵活配置选项，满足不同团队和项目的特定需求。
 ---
 
 <div class="vp-doc">
@@ -42,25 +42,25 @@ features:
 
 ## 主要特性
 
-### 对接 apifox API 文档
+### 对接 Apifox API 文档
 
-- 快速查看 API 列表
-- 快速搜索 API
-- 快速切换不同项目
+- 快速查看 API 列表，支持多项目管理
+- 高效搜索和定位 API
+- 快速切换不同项目，灵活管理
 
-### 自定义配置
+### 灵活的自定义配置
 
-- 自定义配置生成目录
-- 自定义选择API项目
-- 内置通用axios、ts版微信小程序的接口请求
-- 支持自定义接口返回模版
-- 支持自定义prettier配置生成的代码格式
+- 配置生成目录和目标项目
+- 提供 axios 和 TS 微信小程序的接口请求模板
+- 支持自定义接口返回模板，满足多样化需求
+- 自定义 Prettier 配置，自动格式化生成代码
 
-### 开发体验
+### 优化的开发体验
 
-- 不需要自己写接口请求代码，不需要写TS类型定义
-- 统一团队的接口请求定义
-- 自动生成TS类型定义及带有TS类型定义的接口请求
+- 无需手写接口请求代码和 TS 类型定义
+- 统一团队接口风格，减少沟通成本
+- 自动生成类型安全的接口请求代码，提高代码质量
+- 自动生成接口文档，减少文档编写成本
 
 </div>
 
