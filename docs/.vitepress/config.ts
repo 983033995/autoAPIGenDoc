@@ -1,5 +1,5 @@
 /*
- * @FilePath: /autoAPIGenDoc/docs/.vitepress/config.ts
+ * @FilePath: /vscode插件/autoAPIGenDoc/docs/.vitepress/config.ts
  * @Description: 
  */
 import { defineConfig } from 'vitepress'
@@ -37,6 +37,7 @@ export default defineConfig({
         text: '使用指南',
         items: [
           { text: '基础用法', link: '/guide/usage' },
+          { text: '接口详情页', link: '/guide/api-detail' },
           { text: '示例', link: '/guide/examples' },
         ]
       },
@@ -55,7 +56,7 @@ export default defineConfig({
       }
     ],
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/983033995/AutoAPIGen-Vsix' }
+      { icon: 'github', link: 'https://github.com/983033995/AutoAPIGen' }
     ],
     footer: {
       message: '基于 MIT 许可发布',

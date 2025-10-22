@@ -1,3 +1,7 @@
+<!--
+ * @FilePath: /vscode插件/autoAPIGenDoc/docs/guide/installation.md
+ * @Description: 
+-->
 # 安装指南
 
 ## VSCode 插件
