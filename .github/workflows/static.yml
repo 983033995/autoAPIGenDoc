@@ -40,7 +40,9 @@ jobs:
         run: pnpm run build
 
       - name: Create .nojekyll file
-        run: touch docs/.vitepress/dist/.nojekyll
+        run: |
+          mkdir -p docs/.vitepress/dist
+          touch docs/.vitepress/dist/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
