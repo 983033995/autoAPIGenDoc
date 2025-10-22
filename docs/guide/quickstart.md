@@ -25,22 +25,37 @@
 
 ---
 
-### 2. 获取 Authorization 配置
+### 2. 获取认证配置
+
+> **提示**：最新版 Apifox 已改为使用 **Cookie** 进行认证，推荐使用 Cookie 方式。如果您使用的是旧版本，仍可使用 Authorization 方式。
+
+#### 方式一：Cookie 认证（推荐）
+
+1. 在浏览器中打开 [Apifox](https://app.apifox.com) 并登录。
+2. 按 `F12` 打开 **开发者工具**，切换到 **Network 面板**。
+3. 点击任意接口，查看请求头（Headers）中的 `Cookie` 值。
+4. 复制完整的 `Cookie` 值。
+
+#### 方式二：Authorization 认证（旧版本）
 
 1. 在浏览器中打开 [Apifox](https://app.apifox.com) 并登录。
 2. 按 `F12` 打开 **开发者工具**，切换到 **Network 面板**。
 3. 点击任意接口，查看请求头中的 `Authorization` 值。
 4. 复制 `Authorization` 的值。
 
-![获取 Authorization](./img/image2.png)
+![获取认证信息](./img/image2.png)
 
 ---
 
 ### 3. 配置插件
 
-- 将复制的 `Authorization` 值粘贴到插件的 **Authorization 配置** 中。
+- 将复制的 `Cookie` 或 `Authorization` 值粘贴到插件对应的配置项中。
+- **Cookie 方式**：粘贴到 **Cookie 配置** 输入框。
+- **Authorization 方式**：粘贴到 **Authorization 配置** 输入框。
 
-![粘贴 Authorization](./img/image3.png)
+> **注意**：只需配置其中一种认证方式即可，推荐使用 Cookie 方式。
+
+![粘贴认证信息](./img/image3.png)
 
 ---
 
@@ -92,7 +107,9 @@
 
 ## 注意事项
 
-- 如果项目配置或接口生成失败，请检查 **Authorization 值** 或项目配置的完整性。
+- 如果项目配置或接口生成失败，请检查 **Cookie** 或 **Authorization** 值是否正确，以及项目配置的完整性。
+- 推荐使用 **Cookie 认证方式**，这是 Apifox 最新版本的推荐方式。
+- 认证信息有时效性，如果认证失败，请重新获取最新的 Cookie 或 Authorization 值。
 - 可根据项目需求自定义生成路径和代码风格，以适配不同团队的开发规范。
 
 ---

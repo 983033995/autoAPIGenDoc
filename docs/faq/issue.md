@@ -4,9 +4,18 @@
 
 ---
 
+## 快速开始贡献
+
+- 🐛 [报告 Bug](https://github.com/983033995/AutoAPIGen/issues/new?assignees=&labels=bug&template=bug_report.md)
+- 💡 [提出功能建议](https://github.com/983033995/AutoAPIGen/issues/new?assignees=&labels=enhancement&template=feature_request.md)
+- 📖 [改进文档](https://doc.du-ai.cn/)
+- 🔧 [提交代码](https://github.com/983033995/AutoAPIGen/pulls)
+
+---
+
 ## 1. 在 GitHub 提交 Issue
 
-- 您可以访问 [GitHub Issues 页面](https://github.com/983033995/AutoAPIGen-Vsix/issues) 提交问题。
+- 您可以访问 [GitHub Issues 页面](https://github.com/983033995/AutoAPIGen/issues) 提交问题。
 - 提交 Issue 时，请尽量包含以下内容：
   - **问题描述**：详细说明遇到的问题或需求。
   - **重现步骤**：描述问题发生的步骤，便于我们快速定位。

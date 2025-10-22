@@ -1,3 +1,5 @@
 dist
 node_modules
-slides/docs/pubilc
+.vitepress/cache
+.vitepress/dist
+slides/docs/public
