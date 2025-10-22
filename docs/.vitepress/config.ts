@@ -10,6 +10,8 @@ export default defineConfig({
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '../logo.png' }]
   ],
+  // 自定义域名配置
+  outDir: '../dist',
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
