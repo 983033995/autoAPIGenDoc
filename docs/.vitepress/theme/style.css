@@ -1,0 +1,62 @@
+/**
+ * 自定义样式 - 移除首页列表项的小圆点
+ */
+
+/* 移除首页 features 区域的列表样式 */
+.VPFeatures .VPFeature ul,
+.VPFeatures .VPFeature ol {
+  list-style: none !important;
+  padding-left: 0 !important;
+}
+
+.VPFeatures .VPFeature li {
+  list-style: none !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* 移除首页内容区域的列表样式 */
+.vp-doc ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+}
+
+.vp-doc li {
+  list-style: none !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* 移除所有列表项的默认样式 */
+.VPContent ul,
+.VPContent ol {
+  list-style: none !important;
+  padding-left: 0 !important;
+}
+
+.VPContent li {
+  list-style: none !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* 确保首页布局正常 */
+.VPHome .VPContent {
+  padding: 0;
+}
+
+/* 移除伪元素的小圆点 */
+.vp-doc li::before,
+.VPFeature li::before,
+.VPContent li::before {
+  content: none !important;
+}
+
+/* 针对特定的首页列表样式 */
+.VPHome ul {
+  list-style-type: none !important;
+}
+
+.VPHome li {
+  list-style-type: none !important;
+}
