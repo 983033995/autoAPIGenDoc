@@ -1,161 +1,281 @@
-# 基本设置
+# 配置说明
 
-在使用 AutoAPIGen 插件前，您需要进行一些基础配置以满足不同项目的需求。以下是每项设置的详细说明：
+这一页只讲一件事：**`.vscode/autoApiGen.json` 里每个关键字段到底会影响什么。**
 
----
+## 一份可工作的真实配置
 
-## 1. 请求体解析依赖
-
-- **默认依赖**：`qs`
-- **作用**：用于解析 `json` 格式的请求体。
-- **注意**：确保您的项目已安装 `qs` 依赖。
-
----
-
-## 2. 示例项目
-
-文档示例基于 `apifox` 平台上的公开项目 [OpenAI](https://app.apifox.com/project/2100343) 的接口文档进行说明。
-
----
-
-## 3. 应用支持
-
-- 当前仅支持 API 文档管理平台 **`apifox`**。
-- 后续会根据需求增加对 **Postman** 和 **ApiPost** 的支持。
-
----
-
-## 4. 认证配置
-
-> **重要提示**：最新版 Apifox 已改为使用 **Cookie** 进行认证，推荐使用 Cookie 方式。旧版本用户仍可使用 Authorization 方式。
-
-插件支持两种认证方式，只需配置其中一种即可：
-
-### 方式一：Cookie 认证（推荐）
-
-- **用途**：用于获取项目信息的认证凭证（最新版 Apifox 推荐方式）。
-- **获取方式**：
-  1. 登录网页版 [Apifox](https://app.apifox.com)。
-  2. 按 `F12` 打开开发者工具。
-  3. 在 **Network** 面板中选择任意请求，查看 **Headers** 选项卡，找到 `Cookie` 字段并复制其完整值。
-- **配置位置**：将复制的 Cookie 值粘贴到插件的 **Cookie 配置** 输入框中。
-- **优势**：最新版 Apifox 的标准认证方式，稳定性更好。
-
-### 方式二：Authorization 认证（旧版本）
-
-- **用途**：用于获取项目信息的 Token（旧版本 Apifox 使用）。
-- **获取方式**：
-  1. 登录网页版 [Apifox](https://app.apifox.com)。
-  2. 按 `F12` 打开开发者工具。
-  3. 在 **Network** 面板中选择任意请求，查看 **Headers** 选项卡，找到 `Authorization` 字段并复制其值。
-- **配置位置**：将复制的 Authorization 值粘贴到插件的 **Authorization 配置** 输入框中。
-
-### 注意事项
-
-- 认证信息（Cookie 或 Authorization）未配置时，将无法获取项目和接口信息，也无法生成接口文档。
-- 认证信息具有时效性，如果认证失败，请重新获取最新的认证信息。
-- **推荐使用 Cookie 认证方式**，这是 Apifox 最新版本的标准认证方式。
-
----
-
-## 5. 生成路径
-
-- 插件会自动读取当前工作空间的目录结构。
-- 您可以手动选择接口文件的生成位置，支持个性化目录布局。
-
----
-
-## 6. 项目 ID 配置
-
-- 配置 `Cookie` 或 `Authorization` 后，点击 **获取项目列表** 按钮。
-- 在下拉框中选择一个项目，即可获取项目 ID。
-- 左侧接口列表会显示该项目下的所有接口。
-
----
-
-## 7. 接口模型
-
-支持以下三种接口模型：
-
-### 1. `axios` 模型
-
-- 自动生成适用于 `axios` 的接口请求代码。
-- 可结合 **axios 引用路径** 进行个性化配置。
-
-### 2. `微信小程序` 模型
-
-- 生成基于 `wx.request` 的接口请求代码。
-- 首次生成时，自动在生成目录下创建以下文件：
-  1. `index.ts`：封装 `wx.request` 方法（必需）。
-  2. `interface.d.ts`：接口参数类型定义（可自定义）。
- 3. `env.config.ts`：环境变量配置（可自定义）。
-- 注意：修改或删除 `interface.d.ts` 和 `env.config.ts` 后，需同步调整 `index.ts` 的引用。
-
-### 3. `自定义` 模型
-
-- 提供高度灵活性，适用于复杂场景。
-- 可通过自定义函数控制生成的代码格式。
-- 支持自定义返回函数和拓展函数。
-
----
-
-## 8. 使用项目名
-
-- 开启后，生成的接口文件会在项目名目录下分组管理。
-- 适用于调用多个后台项目接口的场景，可有效避免不同项目接口冲突。
-
----
-
-## 9. Axios 引用路径
-
-可以配置 `axios` 的引用路径，用于生成 `axios` 请求代码。若不配置，则默认使用用 `import axios from 'axios'`。可以基于自己的业务需求对 `axios` 进行二次封装。
-
-> eg: 配置 `import http from '@/utils/http'`, 则在生成对应的接口请求时会使用 `http` 代替 `axios`。
-
-## axios返回数据key
-
-- 需要和后台约定，返回的数据使用统一的数据格式，例如：
+下面这类配置，已经在真实项目中长期使用：
 
 ```json
 {
-    "code": 0,
-    "data": {},
-    "msg": ""
+  "appName": "apifox",
+  "Authorization": "",
+  "Cookie": "your-cookie",
+  "path": "/src/services",
+  "projectId": [1452077, 7940188],
+  "model": "custom",
+  "axiosPath": "import http from '@/services/http';",
+  "axiosReturnKey": "data",
+  "useProjectName": true,
+  "useProjectId": true,
+  "useTypeExtension": true,
+  "alias": "src: @",
+  "head": "import http from '@/services/http';",
+  "customReturn": "...",
+  "customExtraFunction": "...",
+  "prettierSetting": "{ \"semi\": false, \"singleQuote\": true, \"parser\": \"typescript\" }"
 }
 ```
 
-- 在 `axios` 的二次封装中，默认只返回 `data` 字段的数据，在此处配置 `data`， 则最终生成的接口返回数据为 `data` 字段的数据，生成的接口定义中也只会有 `data` 部分的类型定义。也可返回多个字段，用英文逗号分隔。
-- 配置为空，则返回 完整的接口数据。
+## 字段总览
 
-> 注：需要结合 `axios` 的二次封装的返回结果和规范的后台数据格式来配置。
+| 字段 | 是否关键 | 说明 |
+| --- | --- | --- |
+| `appName` | 必填 | 生成目录第一层名称，通常为 `apifox` |
+| `Cookie` | 二选一 | 推荐的 Apifox 认证方式 |
+| `Authorization` | 二选一 | 旧流程兼容方式 |
+| `path` | 必填 | 生成代码的基础目录 |
+| `projectId` | 必填 | 当前可操作的项目 ID 列表 |
+| `model` | 建议配置 | `axios` / `微信小程序` / `custom` |
+| `axiosPath` | axios/custom 常用 | 自定义请求实例 import |
+| `axiosReturnKey` | axios/custom 常用 | 返回值解包字段，如 `data` |
+| `useProjectName` | 推荐 | 是否在目录中插入项目名 |
+| `useProjectId` | 推荐 | 是否在请求配置中带上项目 ID |
+| `useTypeExtension` | 可选 | 是否在类型中追加索引签名 |
+| `head` | custom 常用 | 生成文件顶部额外导入 |
+| `customReturn` | custom 常用 | 自定义请求函数模板 |
+| `customExtraFunction` | custom 常用 | 自定义额外辅助函数模板 |
+| `prettierSetting` | 推荐 | 控制生成代码格式 |
+| `alias` | 可选 | 用于快速插入时的路径别名替换 |
 
-## prettier配置
+## 重点字段详解
 
-- 作用：生成的接口文件将自动使用 prettier 格式化。
-- 插件支持：
-  - 内置 `prettier`，默认使用了 `prettier-plugin-sort-imports` 和 `prettier-plugin-organize-imports` 这两个插件来做为基本的格式化规则。
-  - 支持自定义 `prettier` 配置，可以配置 `prettier` 的其它规则。
-- 限制：暂不支持需要依赖第三方插件的 prettier 配置。
-- 注意：目前 `cursor` 编辑器内置格式化功能存在一些问题，会导致配置的 `prettier` 规则失效，但不影响生成接口文件，可以在生成接口文件后手动格式化或忽略。
+## `appName`
 
-## 自定义返回函数
+它不是展示字段，而是**真实参与目录拼接**的：
 
-- 作用：允许用户自定义生成的接口函数代码。
-- 语法：需要提供一个返回字符串的函数，该字符串将作为生成的接口函数代码。
-- 参数：函数接收一个 options 对象，包含接口相关信息。
+```text
+<path>/<appName>/...
+```
 
-## 自定义拓展函数
+例如：
 
-- 作用：允许用户在生成接口函数的同时，生成额外的辅助函数。
-- 语法：需要提供一个返回字符串的函数，该字符串将作为生成的辅助函数代码。
-- 参数：函数接收一个 options 对象，包含接口相关信息。
+```json
+{
+  "appName": "apifox"
+}
+```
 
-## 使用类型拓展
+会生成到：
 
-- 作用：在生成的接口类型定义中添加 `[key: string]: any`，以支持动态属性。
-- 适用场景：当接口返回数据包含动态字段时启用。
+```text
+src/services/apifox/...
+```
 
-## 使用项目ID
+## `path`
 
-- 作用：在请求配置中添加项目ID，用于多项目环境下的请求区分。
-- 适用场景：当需要在请求中标识具体项目时启用。
+这是这轮文档重点补齐的字段。
+
+### 当前真实规则
+
+插件和 CLI 统一按：
+
+```text
+项目根目录 + path
+```
+
+来拼接。
+
+所以以下两种写法都可以：
+
+```json
+{ "path": "src/services" }
+{ "path": "/src/services" }
+```
+
+在当前版本里，都会落到项目内的 `src/services`。
+
+### 真实项目示例
+
+| 项目 | 配置 | 实际落点 |
+| --- | --- | --- |
+| `h5-nextjs` | `"/src/services"` | `src/services/apifox/...` |
+| `admin-refactor` | `"/apps/copilot/src/services"` | `apps/copilot/src/services/apifox/...` |
+
+## `projectId`
+
+可配置多个，但当前生成 / 查询时会使用**最后一个当前选中值**。
+
+常见用途：
+
+- 在多个 Apifox 项目间切换
+- 保留历史项目配置
+- 配合 `useProjectName` 做分目录输出
+
+## `useProjectName`
+
+打开后，生成目录会插入项目名目录，且会转换成 PascalCase。
+
+规则：
+
+```text
+<path>/<appName>/<ProjectNamePascalCase>/<groupPath>/
+```
+
+例如：
+
+```text
+src/services/apifox/ChaoJiAPP/dianPu/
+```
+
+适合：
+
+- 一个仓库里接多个后端项目
+- 想避免不同项目分组重名
+
+## `useProjectId`
+
+打开后，生成模板可以在请求配置中自动透传当前项目 ID。
+
+但要注意：
+
+> **它只是把字段暴露给模板，不会强制修改你的自定义模板。**
+
+也就是说，如果你使用 `custom` 模型，必须在 `customReturn` / `customExtraFunction` 里显式使用这个字段。
+
+真实项目常见写法：
+
+```ts
+const config = options.useProjectId
+  ? `{ ...fetchOptions, projectId: ${options.projectId} }`
+  : 'fetchOptions'
+```
+
+## `model`
+
+当前最常用的是：
+
+| 模型 | 说明 |
+| --- | --- |
+| `axios` | 默认请求函数风格 |
+| `微信小程序` | 生成 `wx.request` 风格代码 |
+| `custom` | 完全交给自定义模板 |
+
+如果你的项目已经有自己的：
+
+- `http` 封装
+- React Query hook 包装
+- `queryOptions`
+- `mutationFn`
+
+通常直接使用 `custom` 最灵活。
+
+## `head`
+
+用来往 `apifox.ts` 顶部插入公共 import / 类型定义。
+
+真实项目例子：
+
+```ts
+import http from '@/services/http'
+import qs from 'qs'
+import { useQuery, useMutation, queryOptions } from '@tanstack/react-query'
+
+type Expand<T> = T extends infer O ? { [K in keyof O]: O[K] } : never
+```
+
+## `customReturn` 与 `customExtraFunction`
+
+这两个字段决定：
+
+- 单个请求函数长什么样
+- 是否额外生成 `useQuery` / `useMutation` / `queryOptions`
+
+### `h5-nextjs` 的典型效果
+
+- `getSuperAppShopList`
+- `useGetSuperAppShopList`
+- `useOptiongetSuperAppShopList`
+
+### `admin-refactor` 的典型效果
+
+- `postAiSessionCreate`
+- `usePostAiSessionCreate`
+
+## `axiosReturnKey`
+
+如果后端响应结构固定为：
+
+```json
+{
+  "code": 0,
+  "data": {},
+  "msg": ""
+}
+```
+
+而你的 `http` 封装只返回 `data`，这里就应该配置：
+
+```json
+{
+  "axiosReturnKey": "data"
+}
+```
+
+否则生成类型会按完整响应体来推导。
+
+## `alias`
+
+这个字段主要影响插件里的“快速使用”和“复制引用”能力。
+
+例如：
+
+```json
+{
+  "alias": "src: @"
+}
+```
+
+生成 import 时会把物理路径替换成 `@/...` 风格。
+
+## 配置建议
+
+### Next.js / React 单仓
+
+推荐：
+
+```json
+{
+  "path": "/src/services",
+  "appName": "apifox",
+  "useProjectName": true,
+  "useProjectId": true,
+  "model": "custom"
+}
+```
+
+### Monorepo 子应用
+
+推荐：
+
+```json
+{
+  "path": "/apps/copilot/src/services",
+  "appName": "apifox",
+  "useProjectName": true,
+  "useProjectId": true,
+  "model": "custom"
+}
+```
+
+## 最后一个判断标准
+
+如果你不确定自己配得对不对，就看最终是否生成到了你预期的目录：
+
+```text
+<path>/<appName>/[<projectName(PascalCase)>/]<groupPath>/
+├── apifox.ts
+└── interface.ts
+```
+
+目录对了，后面模板和类型问题才值得继续排查。

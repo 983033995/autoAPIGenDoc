@@ -1,117 +1,139 @@
-# 快速开始指南
+# 快速开始
 
-以下是使用 AutoAPIGen 插件快速生成 API 接口的详细操作步骤：
+这份指南按照 **真实项目接入顺序** 来写：先把插件跑起来，再验证生成目录，最后决定是否接入 AI / CLI。
 
----
+## 第 1 步：安装并打开插件
 
-## 前置要求
-
-1. **API 文档准备**：团队的 API 文档已在 [Apifox](https://app.apifox.com) 上编写。
-2. **环境准备**：
-   - 安装并打开 **VSCode**。
-   - 安装 **AutoAPIGen** 插件。
-
----
-
-## 操作步骤
-
-### 1. 打开项目并启动插件
-
-- 在 VSCode 中打开一个项目。
-- 打开 **AutoAPIGen 插件**。
-- 点击右上角的 **配置按钮** 或界面中的 `去配置` 按钮。
+1. 在 VS Code 扩展市场搜索 **AutoAPIGen**
+2. 安装后打开你的项目根目录
+3. 打开 AutoAPIGen 侧边栏
+4. 如果没有配置，会看到“去配置”入口
 
 ![插件启动界面](./img/image1.png)
 
----
+## 第 2 步：准备认证信息
 
-### 2. 获取认证配置
+当前 Apifox 推荐使用 **Cookie**，旧流程仍兼容 `Authorization`。
 
-> **提示**：最新版 Apifox 已改为使用 **Cookie** 进行认证，推荐使用 Cookie 方式。如果您使用的是旧版本，仍可使用 Authorization 方式。
+| 方式 | 推荐程度 | 说明 |
+| --- | --- | --- |
+| `Cookie` | 推荐 | 适合当前 Apifox 登录态 |
+| `Authorization` | 兼容 | 用于旧项目或仍保留 Token 流程的场景 |
 
-#### 方式一：Cookie 认证（推荐）
+### 获取 Cookie
 
-1. 在浏览器中打开 [Apifox](https://app.apifox.com) 并登录。
-2. 按 `F12` 打开 **开发者工具**，切换到 **Network 面板**。
-3. 点击任意接口，查看请求头（Headers）中的 `Cookie` 值。
-4. 复制完整的 `Cookie` 值。
-
-#### 方式二：Authorization 认证（旧版本）
-
-1. 在浏览器中打开 [Apifox](https://app.apifox.com) 并登录。
-2. 按 `F12` 打开 **开发者工具**，切换到 **Network 面板**。
-3. 点击任意接口，查看请求头中的 `Authorization` 值。
-4. 复制 `Authorization` 的值。
+1. 打开 [Apifox](https://app.apifox.com) 并登录
+2. 按 `F12` 打开开发者工具
+3. 在 `Network` 里点开任意请求
+4. 复制请求头中的完整 `Cookie`
 
 ![获取认证信息](./img/image2.png)
 
----
+## 第 3 步：完成基础配置
 
-### 3. 配置插件
+最小可用配置通常包括：
 
-- 将复制的 `Cookie` 或 `Authorization` 值粘贴到插件对应的配置项中。
-- **Cookie 方式**：粘贴到 **Cookie 配置** 输入框。
-- **Authorization 方式**：粘贴到 **Authorization 配置** 输入框。
+```json
+{
+  "appName": "apifox",
+  "Cookie": "你的 Cookie",
+  "path": "/src/services",
+  "projectId": [3903128],
+  "model": "custom",
+  "useProjectName": true,
+  "useProjectId": true
+}
+```
 
-> **注意**：只需配置其中一种认证方式即可，推荐使用 Cookie 方式。
+重点说明：
 
-![粘贴认证信息](./img/image3.png)
+- `appName` 会成为生成目录的第一层
+- `path` 推荐写你希望存放生成结果的业务目录
+- `projectId` 可以配置多个，实际使用最后一个当前选中值
+- `useProjectName: true` 时会自动插入 PascalCase 项目名目录
+- `useProjectId: true` 时会在请求配置里透传当前项目 ID
 
----
+> `path` 字段历史上很多项目会写成 `"/src/services"`。当前版本插件和 CLI 都会按**项目根目录**拼接，兼容这种写法。
 
-### 4. 获取项目列表
+## 第 4 步：选择项目并保存
 
-- 点击 **获取项目列表** 按钮。
-- 在弹出的项目列表中，选择需要使用的项目。
+1. 在配置页填入 `Cookie` 或 `Authorization`
+2. 点击“获取项目列表”
+3. 选择当前要生成的项目
+4. 保存配置
 
 ![选择项目](./img/image4.png)
 
----
+保存后，项目根目录会出现：
 
-### 5. 项目配置
+```text
+.vscode/autoApiGen.json
+```
 
-- 根据需要选择项目配置（具体配置说明请参考[配置说明](../config/index.md)）。
-- 配置完成后，点击 **保存** 按钮。
-- 在插件左侧的 **接口列表** 中可查看当前项目的所有接口。
+这也是后续 `aag` CLI 会读取的同一份配置。
+
+## 第 5 步：在插件里生成第一个接口
+
+你可以从两个入口开始：
+
+| 入口 | 适合场景 |
+| --- | --- |
+| 对单接口执行“生成接口” | 先验证生成结果是否符合团队风格 |
+| 对文件夹执行“生成接口” | 一次性生成一个业务分组 |
 
 ![接口列表](./img/image5.png)
 
----
+![文件夹生成](./img/image6.png)
+![接口生成](./img/image7.png)
 
-### 6. 生成接口代码
+## 第 6 步：确认输出是否符合预期
 
-#### 批量生成接口
+默认输出结构：
 
-- 选中目标目录，点击 **生成接口** 按钮，即可生成目录下所有接口的代码。
+```text
+<config.path>/<appName>/[<projectName(PascalCase)>/]<groupPath>/
+├── apifox.ts
+└── interface.ts
+```
 
-#### 单个接口生成
+### 真实项目示例 1：`h5-nextjs`
 
-- 选中需要生成的接口，点击 **生成接口** 按钮，仅生成该接口的代码。
+```text
+src/services/apifox/ChaoJiAPP/dianPu/
+├── apifox.ts
+└── interface.ts
+```
 
-<div style="display: flex; justify-content: space-between; align-items: center;">
-  <img src="./img/image6.png" alt="alt text" style="width: 48%;" />
-  <img src="./img/image7.png" alt="alt text" style="width: 48%;" />
-</div>
+### 真实项目示例 2：`admin-refactor`
 
----
+```text
+apps/copilot/src/services/apifox/AIBFFJieKou/huiHuaGuanLi/
+├── apifox.ts
+└── interface.ts
+```
 
-### 7. 查看生成结果
+如果你的生成结果也落在类似结构，说明路径规则已经跑通。
 
-- 接口生成完成后，在消息通知中查看生成结果。
-- 点击 **查看** 按钮，选择需要查看的文件。
+## 第 7 步：决定是否接入 AI / CLI
 
-![生成结果](./img/image8.png)
-![文件查看](./img/image9.png)
+插件跑通之后，再决定是否启用终端工作流：
 
----
+```bash
+aag init
+aag groups
+aag query 店铺 --json
+aag generate 324170228
+```
 
-## 注意事项
+如果你准备让 AI 帮你调用接口，下一步直接看：
 
-- 如果项目配置或接口生成失败，请检查 **Cookie** 或 **Authorization** 值是否正确，以及项目配置的完整性。
-- 推荐使用 **Cookie 认证方式**，这是 Apifox 最新版本的推荐方式。
-- 认证信息有时效性，如果认证失败，请重新获取最新的 Cookie 或 Authorization 值。
-- 可根据项目需求自定义生成路径和代码风格，以适配不同团队的开发规范。
+- [AI / CLI 指南](/guide/ai-support)
 
----
+## 常见检查项
 
-通过以上步骤，您即可快速完成 API 接口代码的生成，极大提升开发效率。
+| 现象 | 优先检查 |
+| --- | --- |
+| 获取不到项目列表 | `Cookie` / `Authorization` 是否过期 |
+| 生成目录不对 | `path`、`appName`、`useProjectName` 是否符合预期 |
+| 请求函数没有带 `projectId` | `useProjectId` 是否开启，自定义模板是否使用该字段 |
+| 生成类型不符合团队封装 | 是否正在使用 `custom` 模型，`head` / `customReturn` / `customExtraFunction` 是否配置正确 |
