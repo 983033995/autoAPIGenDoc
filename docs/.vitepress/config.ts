@@ -39,6 +39,7 @@ export default defineConfig({
           { text: '基础用法', link: '/guide/usage' },
           { text: '接口详情页', link: '/guide/api-detail' },
           { text: '示例', link: '/guide/examples' },
+          { text: 'AI 工具支持（CLI + Skill）', link: '/guide/ai-support' },
         ]
       },
       {
