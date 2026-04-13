@@ -22,7 +22,7 @@
 推荐直接全局安装：
 
 ```bash
-npm install -g auto-api-gen-cli
+npm install -g @zhangheteng/aag-cli
 ```
 
 安装后验证：
